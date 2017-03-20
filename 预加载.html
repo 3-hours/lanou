@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>预加载</title>
+	<style type="text/css">
+		#percent {
+			width: 100px;
+			height: 30px;
+			color: black;
+			font-size: 40px;
+			position: absolute;
+			top:0;
+			left:0;
+			bottom:0;
+			right: 0;
+			margin:auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="percent">0%</div>
+	<img data-src="http://pic1.win4000.com/wallpaper/f/5462f445e47ff.jpg" alt="">
+	<img data-src="http://pic1.win4000.com/wallpaper/5/5514fb2764e7e.jpg" alt="">
+	<img data-src="http://pic1.win4000.com/wallpaper/5/5514fb2cf04a8.jpg" alt="">
+	<img data-src="http://pic1.win4000.com/wallpaper/5/5514fb31bb07f.jpg" alt="">
+	<script type="text/javascript">
+		var percent = document.getElementById("percent");
+		var imgList = document.getElementsByTagName("img");
+		//动态的发起请求
+		var len = 0; //加载完成的图片数量
+		for(var i =0; i< imgList.length; i++) {
+			var img = new Image(); //创建img元素
+			img.src = imgList[i].getAttribute("data-src"); //发起图片请求
+
+			img.onload = function() {
+				//图片加载完成的事件
+				len++;
+				percent.innerHTML = len/imgList.length * 100 +"%";
+				if(len === imgList.length) {
+					for(var j= 0;j<imgList.length;j++) {
+						imgList[j].src =imgList[j].getAttribute("data-src");
+						percent.innerHTML = "";
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

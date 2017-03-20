@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>懒加载</title>
+	<style type="text/css">
+		#wrap {
+			margin-top: 1200px;
+			display: flex;
+			list-style: none;
+		}
+		#wrap li {
+			flex:1;
+			background-color: red;
+		}
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+			margin:10px 10px;
+		}
+	</style>
+</head>
+<body>
+	<ul id="wrap">
+		<li>
+			<img src="img/no-pic.png" data-src="img/1.jpg">
+			<img src="img/no-pic.png" data-src="img/2.jpg">
+			<img src="img/no-pic.png" data-src="img/3.jpg">
+			<img src="img/no-pic.png" data-src="img/4.jpg">
+		</li>
+		<li>
+			<img src="img/no-pic.png" data-src="img/5.jpg">
+			<img src="img/no-pic.png" data-src="img/6.jpg">
+			<img src="img/no-pic.png" data-src="img/7.jpg">
+			<img src="img/no-pic.png" data-src="img/8.jpg">
+		</li>
+		<li>
+			<img src="img/no-pic.png" data-src="img/p1.jpg">
+			<img src="img/no-pic.png" data-src="img/p2.jpg">
+			<img src="img/no-pic.png" data-src="img/p3.jpg">
+			<img src="img/no-pic.png" data-src="img/p4.jpg">
+		</li>
+	</ul>
+	<script type="text/javascript">
+		var imgList = document.querySelectorAll("#wrap img");
+
+		window.onscroll = function() {
+			for(var i = 0;i<imgList.length;i++) {
+				if(imgList[i].getBoundingClientRect().top < document.documentElement.clientHeight) {
+					imgList[i].src = imgList[i].getAttribute("data-src");
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>

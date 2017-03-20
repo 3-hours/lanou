@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流</title>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+		ul,ol {
+			list-style: none;
+		}
+		#wrap {
+			margin: 0 auto;
+			width: 1000px;
+			overflow: hidden;
+		}
+		li {
+			width: 300px;
+			float: left;
+		}
+		#wrap li div {
+			height: 100px;
+			background-color: blue;
+			font-size: 80px;
+			color: white;
+			margin:10px 10px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<ul id="wrap">
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<footer>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, ea temporibus unde labore, laudantium obcaecati cupiditate tempore inventore iusto distinctio accusamus. Quos laborum adipisci, eum possimus pariatur dolor, odio?
+	</footer>
+	<script type="text/javascript">
+		function rnd(min, max) {
+			return parseInt(Math.random() *(max -min)) + min;
+		}
+		var wrap = document.getElementById("wrap");
+		var list = wrap.getElementsByTagName('li');
+
+		//随机颜色函数
+		function randomColor() {
+			return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).slice(-6);
+		}
+
+		
+		function createDiv() {
+			for(var i =0;i<30;i++) {
+				var newDiv = document.createElement("div");
+				newDiv.style.height = rnd(100,200) +"px";
+				newDiv.style.backgroundColor = randomColor();
+				newDiv.innerHTML = "0" +i;
+				//找到高度最小的li,将生成的块插入进去
+				//Math.min.aaply(null, [ list[0].offsetHeight, list[1].offsetHeight,list[2].offsetHeight,]);
+				var minLi = list[0];
+				for(var j = 0;j < list.length;j++) {
+					if( minLi.offsetHeight > list[j].offsetHeight ) {
+						minLi =list[j];
+					}
+				}
+				minLi.appendChild(newDiv);
+			}
+		}
+		createDiv();
+
+		//页面滚动条滚动触发
+		window.onscroll = function() {
+			//判断 wrap元素的视口坐标bottom 跟页面可视区高度的比较
+			//bottom是元素的下边界
+			if(wrap.getBoundingClientRect().bottom < document.documentElement.clientHeight) {
+				createDiv();
+			}
+		}
+	</script>
+</body>
+</html>
