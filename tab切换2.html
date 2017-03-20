@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tab 切换</title>
+	<style type="text/css">
+		div {
+			display: none;
+			width: 100px;
+			height: 100px;
+			border:1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<button style="background-color:blue;color:#fff;">按钮1</button>
+	<button>按钮2</button>
+	<button>按钮3</button>
+
+	<div style="display:block;">div1</div>
+	<div>div2</div>
+	<div>div3</div>
+	<script type="text/javascript">
+	   //获取元素
+		var btnList = document.getElementsByTagName("button"); //DOM 0级接口 ,返回数组[类数组对象], 没有兼容性
+		var divList = document.getElementsByTagName("div");
+
+		//给每一个button元素绑定事件
+		for(var i =0; i<btnList.length; i++) {
+			btnList[i].index = i; //给每个按钮添加index属性,标记是第几个按钮
+			btnList[i].onclick =function() {
+				console.log(this);  //this 指向对应点击的按钮
+				for(var j =0; j< btnList.length; j++) {
+					//将所有按钮样式去掉 块隐藏
+					btnList[j].style.color ="";
+					btnList[j].style.backgroundColor = "";
+					divList[j].style.display = "none";
+				}
+				//给点击的按钮添加样式,对应的块显示
+				this.style.color = "#fff";
+				this.style.backgroundColor ="blue";	
+				divList[this.index].style.display = "block";
+			}
+		}
+		
+	</script>
+</body>
+</html>

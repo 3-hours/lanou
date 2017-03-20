@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选 反选</title>
+	<style type="text/css">
+	 
+	</style>
+</head>
+<body>
+	 <button id="allBtn">全选</button>
+	 <button id="reverseBtn">反选</button>
+	 <input type="checkbox" id="flag">
+	 <ul id="checkboxList">
+	 	<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+		<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+	 	<li><input type="checkbox"></li>
+	 </ul>
+	<script type="text/javascript">
+	 	var allBtn = document.getElementById('allBtn');
+	 	var reverseBtn = document.getElementById('reverseBtn');
+	 	var flag =  document.getElementById('flag');
+	 	//控制下面一组checkbox的开关
+	 	var checkList = document.getElementById('checkboxList').getElementsByTagName('input');
+
+	 	//2.给对应元素添加事件处理函数  //checked 重点
+	 	allBtn.onclick = function() {
+	 		if(!flag.checked) {  //flag控制按钮
+	 			flag.checked = true;
+	 			for(var i =0; i<checkList.length; i++) {
+	 				checkList[i].checked = true;
+	 			}
+	 		}else {
+	 			flag.checked = false;
+	 			for(var i =0; i<checkList.length; i++) {
+	 				checkList[i].checked = false;
+	 			}
+	 		}
+	 	}
+      
+	 	for(var i =0;i<checkList.length; i++) {
+	 		checkList[i].onclick = function() {
+	 			 checkAll();	
+	 		}
+	 	}
+	 	//反选
+	 	reverseBtn.onclick = function() {
+	 		for(var i =0;i<checkList.length; i++) {
+	 				checkList[i].checked = !checkList[i].checked;
+	 				 checkAll();	
+	 			}
+	 		}
+	 	//检测checkbox是否全部选择上
+	 	function checkAll() {
+	 		for(var j =0; j<checkList.length; j++) {
+	 				//判断所有的checkbox是否都被选上
+	 				//1.只要有一个checkbox没有被选上,终止循环,flag标志位false
+	 				//2.循环没有被打断,说明所有的checkbox都选上了flag标志位true   
+	 				if(checkList[j].checked == false) {
+	 					flag.checked = false;
+	 					break; //只要有一个checkbox没有被选上,跳出该for循环
+	 				}
+	 				flag.checked = true;
+	 			}
+	 		}
+	</script>
+</body>
+</html>

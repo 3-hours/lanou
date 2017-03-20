@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		html,body {
+			width: 100%;
+			background-color: #2d2c2c;
+		}
+		#wrap {
+			margin: 200px auto; 
+			font-family: sans-serif;
+		}
+		#time{
+			color: white;
+			font-size: 64px;
+			text-align: center;
+		}
+		#date {
+			color: #06f773;
+			font-size: 36px;
+			text-align: center;
+		}
+		#clock {
+			margin: 0 auto;
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			border:10px solid #06f773;
+			background-color: black;
+			position: relative;
+		}
+		#number div{
+			width:190px;
+		    height:20px;
+		    position:absolute;
+		    left:10px;
+		    top:90px;                        
+		}
+		#number span{
+			display:block;
+		    width:20px;
+		    height:20px;
+		    color: white;
+		}
+		.pointer{
+		    position:absolute;
+		    bottom:90px;
+		    transform-origin:50% 90%;
+		    -webkit-transform-origin:50% 90%;
+		}
+		#houre{
+		    width:5px;
+		    height:60px;
+		    left:98px;
+		    background:#06f773;
+		}
+		#minute{
+		    width:3px;
+		    height:70px;
+		    left:99px;
+		    background:gray;
+		}
+		#second{
+		    width:1px;
+		    height:80px;
+		    left:100px;
+		    background:white;
+		}
+		#potted {
+			width: 10px;
+			height: 10px;
+			background: white;
+			border-radius: 50%;
+			position: absolute;
+			left:95px;
+			z-index: 100;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<p id="time"></p>
+		<p id="date"></p>
+	</div>
+	<div id="clock">
+		<div id="number">
+			<div><span>9</span></div>
+			<div><span>10</span></div>
+			<div><span>11</span></div>
+			<div><span>12</span></div>
+			<div><span>1</span></div>
+			<div><span>2</span></div>
+			<div><span>3</span></div>
+			<div><span>4</span></div>
+			<div><span>5</span></div>
+			<div><span>6</span></div>
+			<div><span>7</span></div>
+			<div><span>8</span></div>
+		</div>
+		<div id="potted" class="pointer"></div>
+		<div id="houre" class="pointer"></div>
+		<div id="minute" class="pointer"></div>
+		<div id="second" class="pointer"></div>
+	</div>
+	<script type="text/javascript">
+		var timeContent = document.getElementById('time');
+		var dateContent = document.getElementById('date');
+		function clock(){
+			var time = new Date();
+			var hours = time.getHours();
+			var minutes = time.getMinutes();
+			var seconds = time.getSeconds();
+			var year = time.getFullYear();
+			var month = time.getMonth();
+			var date = time.getDate();
+			var day = time.getDay();
+
+			hours = (hours <10) ? ( "0"+hours):hours;
+			minutes = (minutes <10) ? ("0" +minutes):minutes;
+			seconds = (seconds <10) ? ("0" +seconds):seconds;
+			var dayStr = "日一二三四五六日";
+			timeContent.innerHTML = hours  +":"+ minutes +":"+ seconds ;
+			dateContent.innerHTML = year +"年"+ month +"月"+ date +"日, 星期"+ dayStr.split("")[day];
+
+			var oHours = document.getElementById('houre');
+			var oMinutes = document.getElementById('minute');
+			var oSeconds = document.getElementById('second');
+			oSeconds.style.WebkitTransform = "rotate("+ seconds*6 +"deg)";
+			oMinutes.style.WebkitTransform = "rotate("+ minutes*6 +"deg)";
+			oHours.style.WebkitTransform = "rotate("+ hours*30 +"deg)";
+		}
+		clock();
+		setInterval(clock,1000);
+		///////////////////////////////////////////////////////
+		var oNumber=document.getElementById("number");
+		var oDiv=oNumber.getElementsByTagName("div");
+		var oSpan=oNumber.getElementsByTagName("span");
+		for(var i=0;i<oDiv.length;i++){
+		    oDiv[i].style.WebkitTransform="rotate(" + i * 30 + "deg)";
+		}    
+		for(var j=0;j<oSpan.length;j++){
+		    oSpan[j].style.WebkitTransform="rotate("+ j * -30 + "deg)";
+		} 
+		
+	</script>
+</body>
+</html>

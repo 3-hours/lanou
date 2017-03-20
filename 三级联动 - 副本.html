@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>三级联动</title>
+	<style type="text/css">
+		#wrap {
+			width: 500px;
+			margin: 50px auto;
+			text-align: center;
+		}
+		select {
+			padding: 3px 5px;
+			-webkit-apperance:none;
+			outline: none;
+			border:1px solid #999;
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<select name="s_province" id="s_province">
+			<option value="-1">请选择您所在的省份</option>
+		</select>
+		<select name="s_city" id="s_city">
+			<option value="-1">请选择您所在的城市</option>
+		</select>
+		<select name="s_county" id="s_county">
+			<option value="-1">请选择您所在的区/县</option>
+		</select>
+	</div>
+	<script type="text/javascript" src="js/china.js"></script>
+	<script type="text/javascript">
+		var s_province = document.getElementById("s_province"),
+		    s_city     = document.getElementById("s_city"),
+		    s_county   = document.getElementById("s_county");
+		    
+		//三种
+		//var area = JSON.parse(chinaArea);
+		//var area = new Function("return " + chinaArea)();
+		var area = eval("("+ chinaArea + ")");
+
+		var province  = area.china.province;
+		for(var i = 0; i<province.length;i++){
+			s_province.innerHTML += "<option>"+ province[i]["-name"] +"</option>";
+		}
+
+		s_province.onchange = function() {
+			s_city.innerHTML = "<option>请选择您所在的城市</option>";
+			s_county.innerHTML = "<option>请选择您所在的区/县</option>";
+			for (var i = 0; i<province[s_province.selectedIndex-1].city.length; i++) {
+				s_city.innerHTML += "<option>" + province[s_province.selectedIndex-1].city[i]["-name"] + "</option>";
+			};
+		}
+		
+		s_city.onchange = function() {
+			s_county.innerHTML = "<option>请选择您所在的区/县</option>";
+				for (var i = 0; i<province[s_province.selectedIndex-1].city[s_city.selectedIndex-1].county.length; i++) {
+				s_county.innerHTML += "<option>" + province[s_province.selectedIndex-1].city[s_city.selectedIndex-1].county[i]["-name"] + "</option>";
+			};		
+		}	 
+	</script>
+</body>
+</html>

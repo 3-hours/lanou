@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打字</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia eveniet, libero qui, laboriosam id fuga facere earum doloribus officiis sint dolor itaque nesciunt molestias aliquid ut! In nobis, accusamus obcaecati."
+		var i = 0;
+		var result;
+		var timer = setInterval(function(){
+			i++;
+			result += str[i]
+			if(i >= str.length) {
+				clearInterval(timer);
+			}
+			document.body.innerHTML = result;
+		},30)
+	</script>
+</body>
+</html>

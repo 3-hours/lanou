@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!--  <ol id="wrap" class="wrap">
+	<li>01-list</li>
+	<li>02-list</li>
+	<li>03-list</li>
+	<li data-index="list4">04-list</li>
+	<li>05-list</li>
+	<li>06-list</li>
+	<li>07-list</li>
+	<li>08-list</li>
+	<li>09-list</li>
+	<li>10-list</li>
+</ol> 
+1.a.js生成以上ol结构;
+	b.将<li>05-list</li>移动到<li>10-list</li>前;
+	c.<li>01-list</li>复制多一份添加到末尾
+	d.生成一个li,内容为"hello world",替换掉<li>07-list</li>	
+-->
+	<script type="text/javascript">
+		var ol = document.createElement("ol");
+		ol.setAttribute("id","wrap");
+		ol.setAttribute("class","wrap");
+
+		for(var i = 0;i <10; i++) {
+			var li = document.createElement("li");
+			if(i < 9) {
+				li.innerHTML ="0" +( i+1) +"-" +"list";
+			}else {
+				li.innerHTML =  ( i+1) +"-" +"list";
+			}
+			if(i ==4 ){
+				li.setAttribute("data-index","list4");
+			}
+			ol.appendChild(li);
+		}
+		//b
+		ol.insertBefore(ol.children[4],ol.children[9]);
+		//c
+		ol.appendChild( ol.children[0].cloneNode(true));
+		//d
+		var newLi = document.createElement("li");
+		newLi.innerHTML = "hello world";
+		ol.replaceChild(newLi, ol.children[6]);
+		//最后在把dom生成的dom树添加到body里面
+		document.body.appendChild(ol);
+	</script>
+</body>
+</html>

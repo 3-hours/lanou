@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时</title>
+	<style type="text/css">
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		body {
+			width: 100%;
+			background-color: #444;
+			max-width: 644px;
+		}
+		#box {
+			width: 500px;
+			height: 500px;
+			 margin:auto;
+			 position: absolute;
+			 top:0;
+			 bottom: 0;
+			 left:0;
+			 right:0;
+			 text-align: center;
+		}
+		#wrap {
+			 width: 465px;
+			 height: 112px;
+			 background-color: #222;
+			 background-image: -webkit-linear-gradient(top,#333,#222,#333,#222);
+			 border-radius: 5px;
+			 border:1px solid #111;
+			 padding:24px 0;
+			 margin:50px 0;
+			 text-align: center;
+		}
+		#wrap:before {
+			content:"";
+			display: block;
+			width: 10px;
+			height: 65px;
+			background-color: #444;
+			background-image: -webkit-linear-gradient(top,#444,#555,#444,#555);
+			position: absolute;
+			left:-11px;
+			top:140px;
+			border:1px solid #111;
+			border-radius:5px 0 0 5px;
+		}
+		#wrap:after {
+			content:"";
+			display: block;
+			width: 10px;
+			height: 65px;
+			background-color: #444;
+			background-image: -webkit-linear-gradient(top,#444,#555,#444,#555);
+			position: absolute;
+			left:466px;
+			top:140px;
+			border:1px solid #111;
+			border-radius:0 5px 5px 0;
+		}
+		[class^= letter] {
+			font-size: 36px;
+			background-image:-webkit-linear-gradient(92deg,#292626,#efe7e5);
+    		-webkit-background-clip: text;
+    		-webkit-text-fill-color: transparent;
+		}
+		.letters2 {
+			animation:move2 2s cubic-bezier(0.4, 0, 1, 1) both alternate;
+			opacity: 0.3;
+		}
+		@keyframes move2 {
+			0%{
+				transform:scale(1);
+				opacity: 0;
+			}
+			100%{
+				transform:scale(2);
+				opacity: 1;
+			}
+		}
+		#tiles {
+			margin-left: 10px;
+			position: relative;
+			text-align: center;
+		}
+		#tiles > span{
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: white;
+			background-image: -webkit-linear-gradient(top,#bbb,#eee);
+			margin-right: 10px;
+			text-align: center;
+			font-size: 40px;
+			font-weight: bolder;
+			padding-top: 23px;
+			box-sizing:border-box;
+			border-radius: 3px;
+		}
+		#tiles > span:before{
+			content:"";
+			display: block;
+			width: 100px;
+			height: 1px;
+			background-color: white;
+			position: absolute;
+			top:0px;
+		}
+		#tiles > span:after{
+			content:"";
+			display: block;
+			width: 95px;
+			height: 1px;
+			padding:0 2px;
+			background-color: black;
+			position: absolute;
+			top:50%;
+		}
+		#labels {
+			height: 20px;
+			width: 440px;
+			margin:5px auto;
+			display: flex;
+		}
+		#labels > li{
+			flex:1;
+			display: inline-block;
+			list-style: none;
+			color: #f47321;
+			font-weight: bold;
+			text-shadow:1px 1px 0 #000;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="letters1">距离毕业的时间还有</div>
+		<div id="wrap">
+			<div id="tiles"></div>
+			<div id="labels">
+				<li>DAYS</li>
+				<li>HOURS</li>
+				<li>MINS</li>
+				<li>SECS</li>
+			</div>
+		</div>
+		<div class="letters2">加油</div>
+	</div>
+	
+	<script type="text/javascript">
+		
+		var lateData = new Date('2017-6-1-0:0:0');
+		var lateTime = lateData.getTime();
+		var tiles = document.getElementById('tiles');
+			function clock() {
+				var nowData = new Date();
+				var nowTime = nowData.getTime();
+				var minus = (lateTime - nowTime)/1000; //秒数
+				var days  = parseInt(minus/86400);
+				var hours = parseInt(minus/(60*60)%24);
+				var minutes = parseInt((minus/60)%60);
+				var seconds = parseInt(minus%60);
+
+				tiles.innerHTML = "<span>"+ days +"</span><span>"+ hours +"</span><span>"+ minutes +"</span><span>"+ seconds +"</span>";
+			}
+			clock();
+			setInterval(clock,1000);
+		
+		
+	</script>
+</body>
+</html>

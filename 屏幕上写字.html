@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		html,body {
+		width: 100vw;
+		height: 100vh;
+		background: -webkit-linear-gradient(to bottom right, #09f171, #03A9F4);
+		background: linear-gradient(to bottom right, #09f171, #03A9F4);
+		}
+		#wrap {
+			top:30vh;
+			left:10wh;
+			position: absolute;
+			color: white;
+			font-size: 48px;
+			text-align: center;
+		}
+		span {
+			animation: move 0.5s cubic-bezier(1, -0.01, 0, 0.99) infinite alternate;
+		}
+		@keyframes move {
+			0%{color: rgba(255,255,255,0);};
+			100%{color: rgba(255,255,255,1);}
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est incidunt impedit architecto excepturi saepe numquam vitae dolorum nesciunt. Ratione, ut doloribus delectus quos reprehenderit sit animi quibusdam saepe tempore odit!郝存英
+	</div>
+
+	<script type="text/javascript">
+		var wrap = document.getElementById('wrap');
+		var str1= wrap.innerText.split('');
+		var i = 0;
+		wrap.innerHTML='';
+		var str="";
+		setInterval(function(){
+				if(i <str1.length) {
+					str+=str1[i];
+					wrap.innerHTML=str+"<span>|</span>";
+					i++;
+				}
+			},1000)
+	</script>
+</body>
+</html>

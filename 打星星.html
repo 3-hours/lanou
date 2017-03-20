@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>star</title>
+	<link rel="stylesheet" href="css/alibaba/iconfont.css">
+	<style type="text/css">
+		p {
+			font-size: 20px;
+			color: green;
+		}
+		table {
+			border:2px solid green;
+			border-collapse: collapse;
+			margin:0 auto;	
+		}
+		tr,td {
+			border:2px solid green;
+			padding:3px 10px;
+			font-size: 20px;
+			color: black;
+			font-weight: bold;
+		}
+		p{
+			text-align: center;
+		}
+		input {
+			width:300px;
+			height: 20px;
+			outline: none;
+			box-shadow: 0 0 5px 1px #00CC33;
+			margin:0 auto;
+			border:none;
+			padding:10px;
+			font-size: 16px;
+			vertical-align: middle;
+			margin-right: 20px;
+		}
+		button {
+			width:40px;
+			height: 40px;
+			border-radius: 50%;
+			outline: none;
+			border: none;
+			/*background:#00CC33;*/
+			vertical-align: middle;
+			cursor: pointer;
+		}
+		.iconfont {
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+	<p>
+	<input type="text" name="number" placeholder="请输入您想打的金字塔层数" value="">
+	<button class="iconfont icon-success" onclick="drawStar()" id="submit"></button>
+	</p>
+	<div id="content"></div>
+	<script type="text/javascript">
+		/*
+			*				
+		   ***			
+		  *****		
+		 *******	
+		*********
+		分析图形，得出空格和*号的关系：
+		每行的空格数为：总行数-该行行数
+		每行*号数位：（该行行数*2）-1
+		*/
+		//第一种方法
+	/*	document.write('<p align="center">');
+		for(var i =1 ;i <= 5; i++){
+			for(var j = 1; j <= 2*i-1; j++){
+				document.write("*");
+			}
+			document.write("<br/>");
+		}
+		for(var i =1 ;i <= 2; i++){
+			for(var j = 1; j <= 4; j++){
+				document.write("*");
+			}
+			document.write("<br/>");
+		}
+		document.write('</p>');
+		//第二种方法 套用表格
+
+		document.write("<table>");
+			var row =5;
+			for(var i =0; i < row ;i++){
+				document.write("<tr>");
+				for(var k =0; k < row-i-1; k++){
+					document.write("<td>" + " " + "</td>");
+				}
+				for(var j =0; j< 2*i+1; j++){
+					document.write("<td>" + "*" + "</td>");
+				}
+				for(var p =0; p< row-i-1; p++){
+					document.write("<td>" + " " + "</td>");
+				}
+				document.write("</tr>");
+			}
+		document.write("</table>");
+		document.write("</br>");
+		//
+		document.write("<table>");
+			var row =5;
+			for(var i =0; i < row ;i++){
+				document.write("<tr>");
+				for(var k =0; k < i; k++){
+					document.write("<td>" + " " + "</td>");
+				}
+				for(var j =0; j< 2*(row-i)-1; j++){
+					document.write("<td>" + "*" + "</td>");
+				}
+				for(var p =0; p< i; p++){
+					document.write("<td>" + " " + "</td>");
+				}
+				document.write("</tr>");
+			}
+		document.write("</table>");
+		document.write("</br>");*/
+		//
+		function drawStar() {
+			var content = document.getElementById("content");
+			var va = document.getElementsByName("number");
+			var val = va[0].value;//文本框，文本域的值
+			var btn = document.getElementById('submit');
+			btn.style.boxShadow = "0 0 10px 1px #00CC33";
+			btn.style.color = "#00CC33";
+			var str="";
+
+			str+=("<table>");
+			for(var i =0; i < val ;i++){
+				str+=("<tr>");
+				for(var k =0; k < val-i-1; k++){
+					str+=("<td>" + " " + "</td>");
+				}
+				for(var j =0; j< 2*i+1; j++){
+					str+=("<td>" + "*" + "</td>");
+				}
+				for(var p =0; p< val-i-1; p++){
+					str+=("<td>" + " " + "</td>");
+				}
+				str+=("</tr>");
+			}
+			str+=("</table>");
+			content.innerHTML+=str;
+		}
+	</script>
+</body>
+</html>
