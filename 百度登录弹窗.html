@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度弹窗</title>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+		#mask {
+			position:fixed;
+			left:0;
+			top:0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.8);
+			display: none;
+		}
+		#popBox {
+			width: 500px;
+			height: 500px;
+			background-color: white;
+			position: absolute;
+		}
+		#popBox:hover {
+			box-shadow: 0 0 8px 1px yellow;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn">弹窗</button>
+	<div id="mask">
+		<div id="popBox"></div>
+	</div>
+	<script type="text/javascript">
+		var btn = document.getElementById("btn");
+		var mask = document.getElementById("mask");
+		var popBox = document.getElementById("popBox");
+
+		btn.onclick = function() {
+			mask.style.display = "block";
+			popBox.style.left = (document.documentElement.clientWidth - popBox.offsetWidth)/2 + "px";
+			popBox.style.top = (document.documentElement.clientHeight - popBox.offsetHeight)/2 + "px";
+		}
+		mask.onclick = function() {
+			mask.style.display ="none";
+		}
+		popBox.onclick = function(e) {
+			var e = e||window.event;
+			e.cancelBubble = true;
+		}
+
+		popBox.onmousedown = function(e) {
+			var e = e||window.event;
+			var oLeft = e.clientX -popBox.offsetLeft;
+			var oTop = e.clientY - popBox.offsetTop;
+			popBox.onmousemove = function(e) {
+				popBox.style.left = (e.clientX - oLeft)+ "px";
+				popBox.style.top = (e.clientY-oTop)+ "px";
+			}
+			popBox.onmouseup = function() {
+				popBox.onmousemove = null;
+			}
+		}
+	</script>
+</body>
+</html>
