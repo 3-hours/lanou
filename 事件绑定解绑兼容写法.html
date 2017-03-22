@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件绑定兼容写法</title>
+	<style type="text/css">
+		#box {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+		//兼容写法绑定事件
+		function addEvent(element,type,handle) {
+			if(window.addEventListener !== undefined) {
+				//元素支持该方法addEventListener
+				element.addEventListener(type ,handle ,false);
+			}else if(window.attachEvent !== undefined) {
+				//元素支持该方法attachEvent
+				element.attachEvent("on" + type ,handle);
+			}else {
+				element["on" + type ] = handle;
+			}
+		}
+		//简写
+		//window.addEventListener && element.addEventListener(type ,handle ,false);
+		//window.attachEvent && element.detachEvent("on" +type,handle);
+
+		//兼容写法移除事件
+		function removeEvent(element,type,handle) {
+			if(window.removeEventListener !== undefined) {
+				element.removeEventListener(type,handle,false);
+			}else if(window.detachEvent !== undefined ) {
+				element.detachEvent(type,handle);
+			}else {
+				element["on" + type ] = null;
+			}
+		}
+		//测试函数
+		function show(){
+			alert("hello");
+		}
+		addEventListener(document,"click",show)
+		removeEvent(document,"click",show)
+		addEvent(document,"click",function(){
+			alert("nihao");
+		})
+	</script>
+</body>
+</html>

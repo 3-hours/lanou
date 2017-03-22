@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		table {
+			border:1px solid green;
+			border-collapse: collapse;
+		}
+		tr,td{
+			border:1px solid green;
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<table id="table">
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>01</td>
+			<td>02</td>
+			<td>03</td>
+			<td>04</td>
+			<td>05</td>
+			<td>06</td>
+			<td>07</td>
+			<td>08</td>
+			<td>09</td>
+			<td>10</td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		//实现点击li弹窗,将本来要添加到共同子元素li的事件添加到它们共同的父元素wrap
+		var table = document.getElementById("table");
+		table.onclick = function() {
+			var e = e || window.event;
+			var target = e.target || e.srcElement;
+			if(target.tagName === "TD"){
+				var a = parseInt(target.innerHTML);
+				target.innerHTML = a+10;
+			}
+		}
+
+	</script>
+</body>
+</html>
