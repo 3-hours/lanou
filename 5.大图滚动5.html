@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>大图滚动</title>
+	<style type="text/css">
+	#wrap {
+		position: relative;
+		width:510px;
+		margin:0 auto;
+		height: 286px;
+		overflow: hidden;
+	}
+	#wrap:hover .left-arrow,#wrap:hover .right-arrow{
+		/*display: block;*/
+		opacity: 1;
+	}
+	#inner {
+		position: relative;
+		left:0;
+		top:0;
+		width: 9999px;
+	}
+	#inner img{
+		float: left;
+		width:510px;
+		height: 286px;
+		-webkit-user-select:none;
+	}
+	.paganation {
+		position: absolute;
+		bottom:10px;
+		left:0;
+		width:100%;
+		text-align: center;
+		-webkit-user-select:none;
+	}
+	.paganation span {
+		display: inline-block;
+		width:30px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		border-radius: 50%;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	.paganation span.active {
+		background-color: red;
+		color:#fff;
+	}
+	a {
+		text-decoration: none;
+	}
+	.left-arrow {
+		/*display: none;*/
+		opacity: 0;
+		transition:all 1s;
+		position: absolute;
+		font-family: "宋体";
+		left:0;
+		top:0;
+		width:40px;
+		height: 100%;
+		color:#fff;
+		text-align: center;
+		font-size: 40px;
+		line-height: 286px;
+		background-color: rgba(0,0,0,.5);
+		-webkit-user-select:none;
+	}
+	.right-arrow {
+		/*display: none;*/
+		opacity: 0;
+		transition:all 1s;
+		position: absolute;
+		font-family: "宋体";
+		right:0;
+		top:0;
+		width:40px;
+		height: 100%;
+		color:#fff;
+		text-align: center;
+		font-size: 40px;
+		line-height: 286px;
+		background-color: rgba(0,0,0,.5);
+		-webkit-user-select:none;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="inner">
+			<img src="img/1.jpg" alt="">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+			<img src="img/5.jpg" alt="">
+			<img src="img/6.jpg" alt="">
+			<img src="img/7.jpg" alt="">
+			<img src="img/8.jpg" alt="">
+		</div>
+		<div class="paganation" id="paganation">
+			<span class ="active">1</span>
+			<span>2</span>
+			<span>3</span>
+			<span>4</span>
+			<span>5</span>
+			<span>6</span>
+			<span>7</span>
+			<span>8</span>
+		</div>
+		<a class="left-arrow" href="javascript:void(0);">&lt;</a>
+		<a class="right-arrow" href="javascript:void(0);">&gt;</a>
+	</div>
+	<script type="text/javascript">
+		// var btnList = document.querySelectorAll("#paganation span");
+		var btnList = document.getElementById("paganation").getElementsByTagName("span");
+		var innerBox = document.getElementById("inner");
+		var prevBtn = document.querySelector(".left-arrow");
+		var nextBtn = document.querySelector(".right-arrow");
+		var wrap = document.getElementById("wrap");
+		var index = 0; // 控制第几张图片，默认第一张
+		var clickable = true; //控制开关，没有走完一张不能连续点击
+
+		// 1.点击按钮，切换图片
+		var len = btnList.length;
+		var perWidth = innerBox.children[0].offsetWidth;
+
+		//复制第一张图片并插入到末尾
+		innerBox.appendChild(innerBox.children[0].cloneNode(true));
+
+		// yuidoc 文档书写 DocBlockr
+		function tab() {
+			// innerBox.style.left = - perWidth * index + "px";
+			var start = innerBox.offsetLeft;
+			var end = - perWidth * index;
+			var change = end - start;
+			var t = 0;
+			var maxT = 30;
+			var tabTimer = setInterval(function() {
+				t++;
+				if(t >= maxT) {
+					clearInterval(tabTimer);
+					clickable = true; // 标识当前的那张图片的动画走完
+					//最后一张，动画结束
+					if(index === len) {
+						innerBox.style.left = 0;
+						index = 0;
+						return;
+					}
+				}
+				innerBox.style.left = change/maxT * t + start + "px";
+			}, 17)
+
+			for(var j = 0; j < len; j++) {
+				btnList[j].className = "";
+			}
+			btnList[index % len].className = "active";
+		}
+
+		function next() {
+			index++;
+			if(index > len) {
+				index = 0;
+			}
+			tab();
+		}
+
+		function prev() {
+			index--;
+			if(index < 0) {
+				index = len - 1;
+
+				//设置innerBox 的left值为最后一张
+				innerBox.style.left = - perWidth * len + "px";
+			}
+			tab();
+		}
+
+		for(var i = 0; i < len; i++) {
+			btnList[i].index = i;
+			btnList[i].onclick = function() {
+				//点击按钮的时候将按钮的下标赋值给index
+				index = this.index;
+				tab();
+			}
+		}
+
+		// 下一张
+		nextBtn.onclick = function() {
+			if(clickable) {
+				next();
+			}
+			clickable = false;
+		}		
+
+		//上一张
+		prevBtn.onclick = function() {
+			if(clickable) {
+				prev();
+			}
+			clickable = false;
+		}
+
+		//自动走
+		var timer = setInterval(next, 5000);
+
+		// 鼠标移上去，清除计时器
+		wrap.onmouseover = function() {
+			clearInterval(timer);
+		}
+		//鼠标移开，重启计时器
+		wrap.onmouseout = function() {
+			timer = setInterval(next, 5000);
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
